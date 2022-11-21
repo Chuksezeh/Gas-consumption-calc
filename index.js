@@ -46,24 +46,58 @@ const kilo = inputLiter.value;
 const total = inputSpeed.value;
 
 literConsum.innerHTML = `<h2 class="liter-consum">${result} km</h2>`;
-const totalS = [{result:result,kilo:kilo,totalgas: total}]
-console.log(totalS)
+const totalS = {result:result,kilo:kilo,totalgas: total}
+
                  
-localStorage.setItem('All', JSON.stringify(totalS));
+// localStorage.setItem('All', JSON.stringify(totalS));
+// console.log(totalS)
+let retrieved = localStorage.getItem('All');
+console.log('retrieved->>', retrieved);
+// retrieved = retrieved ? retrieved.split(',') : [];
+const oldData = JSON.parse(retrieved);
+console.log('jData', oldData, oldData.length);
 
-const retrieved = localStorage.getItem('All');
+// retrieved.push(retrieved)
+// localStorage.setItem('All', retrieved.toString());
 
-if (retrieved.length > 0) {
-   localStorage.setItem('All', JSON.stringify(totalS));
+if (oldData.length > 0) {
+  let newArr;
+  const newData = [totalS]
+  // const tResult = retrieved.push(...totalS);
+  console.log('jData o oldData', newData, oldData);
+  newArr = [...oldData, ...newData];
+  // newArr.push(...retrieved, totalS)
+  console.log('totalS.......', newArr);
+  localStorage.setItem('All',JSON.stringify(newArr))
+  // retrieved.push(newArray);
+  // newArray =localStorage.setItem( 'Kind',JSON.stringify(newArray));
+  
+  // console.log('i enter the first one');
+  //  localStorage.setItem('All', newArray);
 }else{
-  localStorage.setItem('All', JSON.stringify(totalS));
+  console.log('i enter the second one', totalS);
+  localStorage.setItem('All', JSON.stringify([totalS]));
 }
 console.log(typeof retrieved)
 //localStorage.setItem("result",'');
-const converted = JSON.parse(retrieved)
+//const converted = JSON.parse(retrieved)
 days.innerHTML = `<div>${retrieved}</div>`
 
 });
+
+
+// function appendValueToStorage(key, value) {
+//   var values = JSON.parse(localStorage.getItem(key));
+//   if (values === null) {
+//     values = [];
+//   }
+
+//   values.push(value);
+//   localStorage.setItem(key, JSON.stringify(values));
+//   console.log(localStorage.getItem(key));
+// }
+
+// appendValueToStorage('todays-values', document.getElementById("sample").value);
 
 //var retrievedObject = localStorage.getItem('testObject');
 // formOne.addEventListener('submit',(e) =>{
